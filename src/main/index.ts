@@ -1,5 +1,5 @@
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
-import { BrowserWindow, app, shell } from "electron";
+import { BrowserWindow, app, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
 
@@ -41,6 +41,9 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId("com.electron");
+  ipcMain.on("compressJpegImg", (_event, arg0) => {
+    console.log(arg0);
+  });
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

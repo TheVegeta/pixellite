@@ -6,7 +6,7 @@ import { ChangeEvent, createRef } from "react";
 const FileInput = () => {
   const inputRef = createRef<HTMLInputElement>();
 
-  const { setImage } = useAppState();
+  const { setImage, imgArray } = useAppState();
 
   const handleClick = () => {
     inputRef.current?.click();
@@ -30,6 +30,10 @@ const FileInput = () => {
     }
   };
 
+  const handleImageCompress = () => {
+    imgArray.map((item) => {});
+  };
+
   return (
     <Container>
       <Input
@@ -43,6 +47,8 @@ const FileInput = () => {
         <Button onClick={handleClick}>
           <AddIcon />
         </Button>
+
+        <Button onClick={handleImageCompress}>compress </Button>
       </Flex>
     </Container>
   );
