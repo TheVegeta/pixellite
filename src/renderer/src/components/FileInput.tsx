@@ -1,6 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Button, Container, Flex, Input } from "@chakra-ui/react";
 import { useAppState } from "@renderer/store";
+import { map } from "modern-async";
 import { ChangeEvent, createRef } from "react";
 
 const FileInput = () => {
@@ -30,8 +31,14 @@ const FileInput = () => {
     }
   };
 
-  const handleImageCompress = () => {
-    imgArray.map((item) => {});
+  const handleImageCompress = async () => {
+    await map(imgArray, async (item) => {
+      await window.api.compressJpegImg({
+        outpath: "",
+        quality: 60,
+        url: item.path,
+      });
+    });
   };
 
   return (

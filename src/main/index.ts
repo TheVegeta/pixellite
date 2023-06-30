@@ -2,6 +2,7 @@ import { electronApp, is, optimizer } from "@electron-toolkit/utils";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
+import { ICompressOptions, compressJpegImg } from "../core";
 
 function createWindow(): void {
   // Create the browser window.
@@ -41,8 +42,9 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId("com.electron");
-  ipcMain.on("compressJpegImg", (_event, arg0) => {
-    console.log(arg0);
+
+  ipcMain.handle("compressJpegImg", (_event, arg0: ICompressOptions) => {
+    compressJpegImg(arg0);
   });
 
   // Default open or close DevTools by F12 in development
