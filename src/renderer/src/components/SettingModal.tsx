@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useAppSetting } from "@renderer/store";
 import { Formik, FormikErrors, FormikHelpers, FormikTouched } from "formik";
+import _ from "lodash";
 import { FC, MouseEvent, useEffect, useState } from "react";
 import * as Yup from "yup";
 
@@ -39,7 +40,6 @@ const CustomPathSelect: FC<{
   const handleFileChange = async (e: MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     const path = await window.api.getDirPath();
-    console.log(path);
     setFieldValue("savePath", path);
   };
 
@@ -77,7 +77,12 @@ const SettingModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
   ) => {
     actions.setSubmitting(true);
 
-    await setQuality(val);
+    setQuality({
+      jpegQuality: _.toNumber(val.jpegQuality),
+      pngQuality: _.toNumber(val.pngQuality),
+      savePath: val.savePath,
+      webpQuality: _.toNumber(val.webpQuality),
+    });
 
     onClose();
 

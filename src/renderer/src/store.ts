@@ -5,6 +5,7 @@ import { persist } from "zustand/middleware";
 interface BearState {
   imgArray: Array<File>;
   setImage: (arg0: Array<File>) => void;
+  resetImg: () => void;
 }
 
 interface IAppSetting {
@@ -28,6 +29,10 @@ const setImages: (arg0: Array<File>) => Array<File> = (arg0) => {
 
 export const useAppState = create<BearState>()((set) => ({
   imgArray: [],
+  resetImg: () =>
+    set(() => ({
+      imgArray: [],
+    })),
   setImage: (imgList) =>
     set((state) => ({
       imgArray: setImages([...state.imgArray, ...imgList]),
