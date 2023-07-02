@@ -11,14 +11,15 @@ export interface ICompressOptions {
 
 export type compressImg = (arg0: ICompressOptions) => Promise<boolean>;
 
+export const getDefaultImagePath = () =>
+  path.resolve(app.getPath("pictures") + "/pixelLite");
+
 export const compressJpegImg: compressImg = async ({
   url,
   quality,
   outpath,
 }) => {
-  const picturePath = path.resolve(app.getPath("pictures") + "/pixelLite");
-
-  fs.ensureDirSync(picturePath);
+  fs.ensureDirSync(outpath);
 
   try {
     const imgBuffer = await sharp(path.resolve(url))
@@ -30,10 +31,8 @@ export const compressJpegImg: compressImg = async ({
       })
       .toBuffer();
 
-    console.log(path.resolve(picturePath + "/" + Math.random() + ".jpeg"));
-
     await fs.writeFile(
-      path.resolve(picturePath + "/" + Math.random() + ".jpeg"),
+      path.resolve(outpath + "/" + Math.random() + ".jpeg"),
       imgBuffer
     );
 

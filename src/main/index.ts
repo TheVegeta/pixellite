@@ -2,7 +2,11 @@ import { electronApp, is, optimizer } from "@electron-toolkit/utils";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
-import { ICompressOptions, compressJpegImg } from "../core";
+import {
+  ICompressOptions,
+  compressJpegImg,
+  getDefaultImagePath,
+} from "../core";
 
 function createWindow(): void {
   // Create the browser window.
@@ -45,6 +49,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle("compressJpegImg", (_event, arg0: ICompressOptions) => {
     compressJpegImg(arg0);
+  });
+
+  ipcMain.handle("getDefaultPath", (_event, _arg0: ICompressOptions) => {
+    return getDefaultImagePath();
   });
 
   // Default open or close DevTools by F12 in development

@@ -4,6 +4,7 @@ import { contextBridge, ipcRenderer } from "electron";
 // Custom APIs for renderer
 const api = {
   compressJpegImg: (arg0: any) => ipcRenderer.invoke("compressJpegImg", arg0),
+  getDefaultPath: () => ipcRenderer.invoke("getDefaultPath"),
 };
 
 contextBridge.exposeInMainWorld("electron", electronAPI);

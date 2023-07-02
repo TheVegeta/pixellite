@@ -1,11 +1,20 @@
-import { AddIcon } from "@chakra-ui/icons";
-import { Button, Container, Flex, Input } from "@chakra-ui/react";
+import { AddIcon, SettingsIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  Container,
+  Flex,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useAppState } from "@renderer/store";
 import { map } from "modern-async";
 import { ChangeEvent, createRef } from "react";
+import SettingModal from "./SettingModal";
 
 const FileInput = () => {
   const inputRef = createRef<HTMLInputElement>();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { setImage, imgArray } = useAppState();
 
@@ -41,6 +50,10 @@ const FileInput = () => {
     });
   };
 
+  (async () => {
+    console.log(await window.api.getDefaultPath());
+  })();
+
   return (
     <Container>
       <Input
@@ -50,13 +63,19 @@ const FileInput = () => {
         multiple={true}
         onChange={handleFileChange}
       />
-      <Flex justifyContent="center" my="20">
+      <Flex justifyContent="center" my="20" gap="3">
         <Button onClick={handleClick}>
           <AddIcon />
         </Button>
 
-        <Button onClick={handleImageCompress}>compress </Button>
+        <Button onClick={handleImageCompress}>compress</Button>
+
+        <Button onClick={onOpen}>
+          <SettingsIcon />
+        </Button>
       </Flex>
+
+      <SettingModal isOpen={isOpen} onClose={onClose} />
     </Container>
   );
 };
