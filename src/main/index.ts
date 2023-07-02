@@ -5,6 +5,8 @@ import icon from "../../resources/icon.png?asset";
 import {
   ICompressOptions,
   compressJpegImg,
+  compressPngImg,
+  compressWebpImg,
   getDefaultImagePath,
 } from "../core";
 
@@ -48,7 +50,15 @@ app.whenReady().then(() => {
   electronApp.setAppUserModelId("com.electron");
 
   ipcMain.handle("compressJpegImg", (_event, arg0: ICompressOptions) => {
-    compressJpegImg(arg0);
+    return compressJpegImg(arg0);
+  });
+
+  ipcMain.handle("compressPngImg", (_event, arg0: ICompressOptions) => {
+    return compressPngImg(arg0);
+  });
+
+  ipcMain.handle("compressWebpImg", (_event, arg0: ICompressOptions) => {
+    return compressWebpImg(arg0);
   });
 
   ipcMain.handle("getDefaultPath", (_event, _arg0: ICompressOptions) => {

@@ -6,6 +6,8 @@ declare global {
     electron: ElectronAPI;
     api: {
       compressJpegImg: compressImg;
+      compressPngImg: compressImg;
+      compressWebpImg: compressImg;
       getDefaultPath: () => Promise<string>;
     };
   }
