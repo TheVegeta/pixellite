@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { app, dialog } from "electron";
 import fs from "fs-extra";
 import path from "path";
 import sharp from "sharp";
@@ -13,6 +13,14 @@ export type compressImg = (arg0: ICompressOptions) => Promise<boolean>;
 
 const getFileName = (filePath: string) => {
   return path.basename(filePath);
+};
+
+export const getDirPath = async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+  });
+  if (canceled) return "";
+  return filePaths[0];
 };
 
 export const getDefaultImagePath = () => {

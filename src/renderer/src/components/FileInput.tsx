@@ -50,10 +50,6 @@ const FileInput = () => {
     });
   };
 
-  (async () => {
-    console.log(await window.api.getDefaultPath());
-  })();
-
   return (
     <Container>
       <Input

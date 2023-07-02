@@ -7,6 +7,7 @@ const api = {
   compressPngImg: (arg0: any) => ipcRenderer.invoke("compressPngImg", arg0),
   compressWebpImg: (arg0: any) => ipcRenderer.invoke("compressWebpImg", arg0),
   getDefaultPath: () => ipcRenderer.invoke("getDefaultPath"),
+  getDirPath: () => ipcRenderer.invoke("getDirPath"),
 };
 
 contextBridge.exposeInMainWorld("electron", electronAPI);

@@ -8,6 +8,7 @@ import {
   compressPngImg,
   compressWebpImg,
   getDefaultImagePath,
+  getDirPath,
 } from "../core";
 
 function createWindow(): void {
@@ -59,6 +60,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle("compressWebpImg", (_event, arg0: ICompressOptions) => {
     return compressWebpImg(arg0);
+  });
+
+  ipcMain.handle("getDirPath", (_event, _arg0) => {
+    return getDirPath();
   });
 
   ipcMain.handle("getDefaultPath", (_event, _arg0: ICompressOptions) => {

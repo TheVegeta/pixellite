@@ -8,6 +8,7 @@ declare global {
       compressJpegImg: compressImg;
       compressPngImg: compressImg;
       compressWebpImg: compressImg;
+      getDirPath: () => Promise<string>;
       getDefaultPath: () => Promise<string>;
     };
   }
